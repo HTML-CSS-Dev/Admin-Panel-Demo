@@ -1,11 +1,52 @@
-// window.alert(`Welcome ${localStorage.getItem("user")}!`);
+window.localStorage.setItem("foods" , JSON.stringify([
+    {
+        id:1,
+        food_img: "https://upload.wikimedia.org/wikipedia/commons/4/4d/Cheeseburger.jpg",
+        food_name:"Burger",
+        food_price:12,
+        plus_id:"plus1",
+        minus_id:"minus1",
+    }, 
+    
+    {
+        id:2,
+        food_img:"https://upload.wikimedia.org/wikipedia/commons/f/fb/Hotdog_-_Evan_Swigart.jpg", 
+        food_name:"Hot Dog",
+        food_price:6,
+        plus_id:"plus2",
+        minus_id:"minus2",
+    },
+
+    {
+        id:3,
+        food_img:"https://ik.imagekit.io/wlfr/wellness/images/products/372473-1.jpg/tr:w-3840,c-at_max,cm-pad_resize,ar-1210-700,pr-true,f-auto,q-70,l-image,i-Wellness_logo_BDwqbQao9.png,lfo-bottom_right,w-200,h-90,c-at_least,cm-pad_resize,l-end", 
+        food_name:"Chips",
+        food_price:10,
+        plus_id:1,
+        plus_id:"plus3",
+        minus_id:"minus3",
+    },
+]));
+
+
 
 
 const parent = document.getElementById("father");
+const counters = {
+    count1:0,
+    count2:0,
+    count3:0,
+};
 
-(() => {
 
-    for( let i = 0; i < 1; i++ ) {
+function showItems()  {
+
+    const food_data = JSON.parse(localStorage.getItem("foods"));
+    
+    console.log(food_data)
+
+    for( let i of food_data ) {
+
 
         parent.innerHTML += 
     `
@@ -16,29 +57,29 @@ const parent = document.getElementById("father");
     <div class="overflow-hidden">
         <img 
             class="w-full h-48 object-cover hover:scale-105 transition duration-300"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyFcvmHKM1inSOApmGcIYGT_XsE4KF9Pazuw&s" 
-            alt="Burger"
+            src=${i.food_img} 
+            alt=${i.food_name}
         >
     </div>
 
     <!-- content -->
     <div class="p-4">
         <h2 class="text-lg font-semibold text-gray-800 mb-2">
-            Burger
+            ${i.food_name}
         </h2>
 
         <div class="flex justify-between items-center mb-3">
             <span class="text-gray-500 text-sm">Price</span>
             <span  class="text-xl font-bold text-green-600">
-               <span>$</span><span id="getPrice">12</span>
+               <span>$</span><span>${i.food_price}</span>
             </span>
         </div>
 
     <!-- counter -->
         <div class="flex items-center justify-between bg-gray-100 rounded-xl px-3 py-2">
-            <button id="minus" class="text-lg font-bold px-2 hover:text-red-500">-</button>
-            <span id="count" class="font-semibold text-lg">0</span>
-            <button id="plus" class="text-lg font-bold px-2 hover:text-green-500">+</button>
+            <button id=${i.minus_id} class="text-lg font-bold px-2 hover:text-red-500">-</button>
+            <span id = ${i.id} class="font-semibold text-lg">0</span>
+            <button id=${i.plus_id} class="text-lg font-bold px-2 hover:text-green-500">+</button>
         </div>
 
     <!-- total price -->
@@ -53,78 +94,192 @@ const parent = document.getElementById("father");
          
     <!-- button -->
 
-        <button class="mt-4 w-full bg-black text-white py-2 rounded-xl hover:bg-gray-800 transition">
-            Buy Now
+        <button id = "add" class="mt-4 w-full bg-black text-white py-2 rounded-xl hover:bg-gray-800 transition">
+            Order now
         </button>
     </div>
 </div>
-        
+
 `
+}
+}
+
+showItems();
+
+
+// counters:
+const plus1 = document.getElementById("plus1");
+const minus1 = document.getElementById("minus1");
+
+
+// showModal:
+const modal1 = document.querySelector("span[id = '1']");
+const modal2 = document.querySelector("span[id = '2']");
+const modal3 = document.querySelector("span[id = '3']");
+
+
+let price1 = modal1.parentElement.previousElementSibling.lastElementChild.lastElementChild.textContent;
+let overall_price1 = modal1.parentElement.nextElementSibling.lastElementChild.firstElementChild;
+
+let price2 = modal2.parentElement.previousElementSibling.lastElementChild.lastElementChild.textContent;
+let overall_price2 = modal2.parentElement.nextElementSibling.lastElementChild.firstElementChild;
+
+let price3 = modal3.parentElement.previousElementSibling.lastElementChild.lastElementChild.textContent;
+let overall_price3 = modal3.parentElement.nextElementSibling.lastElementChild.firstElementChild;
+
+
+// increase:
+plus1.onclick = function() {
+    counters.count1++;
+    modal1.textContent = counters.count1;
+    overall_price1.textContent = counters.count1 * price1;
+}
+
+plus2.onclick = function() {
+    counters.count2++;
+    modal2.textContent = counters.count2;
+    overall_price2.textContent = counters.count2 * price2;
+}
+
+plus3.onclick = function() {
+    counters.count3++;
+    modal3.textContent = counters.count3;
+    overall_price3.textContent = counters.count3 * price3;
+
+}
+
+
+// decrease:
+minus1.onclick = function() {
+    counters.count1--;
+    if( counters.count1 < 0 )
+        counters.count1 = 0;
+
+    modal1.textContent = counters.count1;
+    overall_price1.textContent -= price1;
+
+    if( overall_price1.textContent < 0 ) 
+        overall_price1.textContent = 0;
+}
+
+minus2.onclick = function() {
+    counters.count2--;
+
+    if( counters.count2 < 0 ) {
+        counters.count2 = 0;
     }
-})();
 
+    modal2.textContent = counters.count2;
+    overall_price2.textContent -= price2;
 
-let count = 0;
-
-parent.onclick = function(e) {
-    console.log(e.target.textContent)
+    if( overall_price2.textContent < 0 ) 
+        overall_price2.textContent = 0;
     
-    if( e.target.textContent === "+") {
-        count++
-        if (e.target.parentElement.previousElementSibling.previousElementSibling.textContent.trim().toLowerCase() === "burger") {
-            e.target.previousElementSibling.textContent = count;
-        
-        e.target.parentElement.nextElementSibling.lastElementChild.firstElementChild.textContent = count
-        e.target.parentElement.nextElementSibling.lastElementChild.firstElementChild.textContent = e.target.parentElement.previousElementSibling.lastElementChild.lastElementChild.textContent * count;
+}
+
+minus3.onclick = function() {
+    counters.count3--;
+    
+    if( counters.count3 < 0 ) {
+        counters.count3 = 0;
     }
-}
 
-    if( e.target.textContent === "-" ) {
-        count--;
+    modal3.textContent = counters.count3;
 
-        if (e.target.parentElement.previousElementSibling.previousElementSibling.textContent.trim().toLowerCase() === "burger") {
-                if ( count < 0 )
-                    count = 0;
-            
-            e.target.nextElementSibling.textContent = count;
-            e.target.parentElement.nextElementSibling.lastElementChild.firstElementChild.textContent -= e.target.parentElement.previousElementSibling.lastElementChild.lastElementChild.textContent ;
+    overall_price3.textContent -= price3;
 
-            if(count === 0)
-                e.target.parentElement.nextElementSibling.lastElementChild.firstElementChild.textContent = 0;
-    }       
-}
+    if( overall_price3.textContent < 0 ) 
+        overall_price3.textContent = 0;
 }
 
 
 
 
-/* 
+// hand-made data:
+
+
+const orders = JSON.parse(localStorage.getItem("orders")) || [];
+// order buttons;
+const order1 = modal1.parentElement.nextElementSibling.nextElementSibling;
+const order2 = modal2.parentElement.nextElementSibling.nextElementSibling;
+const order3 = modal3.parentElement.nextElementSibling.nextElementSibling;
+
+
+
+
+order1.onclick = function() {
  
-const decreaser = document.getElementById("minus");
-const increaser = document.getElementById("plus");
-const counter = document.getElementById("count");
+    orders.push({
+        title:"Burger",
+        price:overall_price1.textContent,
+        count:modal1.textContent
+    });
 
-const getPrice = document.getElementById("getPrice"); // backend get
-const price = document.getElementById("price"); // backend method post
+    localStorage.setItem("orders" , JSON.stringify(orders));
 
-
-increaser.onclick = () => {
-    count++;
-    counter.textContent = count;
-    price.textContent = getPrice.textContent * count;
+    overall_price1.textContent = 0;
+    modal1.textContent = 0;
 }
 
-decreaser.onclick = () => {
-    count--;
+order2.onclick = function() {
 
-    if ( count < 0 )
-       count = 0;
+    orders.push({
+        title:"Hot Dog",
+        price:overall_price2.textContent,
+        count:modal2.textContent
+    });
 
-    console.log(price.textContent)
-    price.textContent -= getPrice.textContent;
-    counter.textContent = count;
+    localStorage.setItem("orders" , JSON.stringify(orders));
+
+    overall_price2.textContent = 0;
+    modal2.textContent = 0;
+}
+
+
+order3.onclick = function() {
     
-    if( count === 0 )
-        price.textContent = 0;
+    orders.push({
+        title:"Chips",
+        price:overall_price3.textContent,
+        count:modal3.textContent
+    });
+
+    localStorage.setItem("orders" , JSON.stringify(orders));
+
+    overall_price3.textContent = 0;
+    modal3.textContent = 0;
 }
-    */
+
+
+
+// get Info:
+const total = document.getElementById("total");
+const quantity = document.getElementById("quantity");
+const foodSelector = document.getElementById("select-food");
+
+foodSelector.onchange = function() {
+    const userOrder = JSON.parse(localStorage.getItem("orders"));
+    
+    for( let i of userOrder ) {
+        if ( i.title.trim() === foodSelector.value.trim() ) {
+            total.textContent = i.price;
+            quantity.textContent = i.count;
+            return
+        }
+    }
+};
+
+
+function selection() {
+    const userOrder = JSON.parse(localStorage.getItem("orders"));
+    
+    for( let i of userOrder ) {
+        if ( i.title.trim() === foodSelector.value.trim() ) {
+            total.textContent = i.price;
+            quantity.textContent = i.count;
+            return
+        }
+    }
+}
+
+selection()
