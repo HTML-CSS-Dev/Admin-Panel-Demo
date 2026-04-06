@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+
+<header class="flex justify-end">  
+  <a href="http://127.0.0.1:5500/sign-up-panel/index.html" target="_self" class="cursor-pointer mt-2 mr-2 rounded-sm py-2.5 px-5 bg-gray-500 text-white font-semibold 
+hover:bg-gray-900 active:scale-95 transition duration-200 
+shadow-md hover:shadow-lg">Sign in</a>
+
+</header>
+
+
+  <form id="send" class="flex flex-col w-80 p-6 mx-auto mt-40 bg-white rounded-2xl shadow-lg gap-5">
+
+  <h2 class="text-2xl font-bold text-center text-gray-700">Login</h2>
+
+  <div class="flex flex-col gap-1">
+    <label for="fname" class="text-sm text-gray-600">Full Name</label>
+    <input 
+      type="text" 
+      id="fname"
+      placeholder="Enter your name"
+      maxlength="30" 
+      required
+      class="px-3 py-2 border border-gray-300 rounded-lg outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+    >
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="pass" class="text-sm text-gray-600">Password</label>
+    <input 
+      type="password" 
+      id="pass"
+      placeholder="Enter your password"
+      maxlength="30" 
+      required
+      class="px-3 py-2 border border-gray-300 rounded-lg outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+    >
+  </div>
+
+  <input 
+    type="submit"
+    value="Log in"
+    class="mt-2 py-2 rounded-lg bg-blue-500 text-white font-semibold cursor-pointer transition duration-300 hover:bg-blue-600 active:scale-95"
+  >
+
+</form>
+    <script type="module" src="./scripts/index.js"></script>
+</body>
+</html>
