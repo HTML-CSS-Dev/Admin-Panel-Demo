@@ -12,15 +12,17 @@ form.onsubmit = function(e) {
     e.preventDefault();
     
     // CHECK VALIDATION:
-    if( !(form['fname'].value.length > 5) && !(form['pass'].value.length > 8)  ) {
+    if( !(form['fname'].value.length >= 5) && !(form['pass'].value.length >= 8)  ) {
         errors.user.classList.replace("hidden" , "block");
         errors.password.classList.replace("hidden" , "block");
         return
-    } else if( !(form['fname'].value.length > 5) ) {
-        errors.user.classList.replace("hidden" , "block")
+    } else if( !(form['fname'].value.length >= 5) ) {
+        errors.user.classList.replace("hidden" , "block");
+        errors.password.classList.replace("block" , "hidden");
         return
-    } else if( !(form['pass'].value.length > 8) ) {
-        errors.password.classList.replace("hidden" , "block")
+    } else if( !(form['pass'].value.length >= 8) ) {
+        errors.user.classList.replace("block" , "hidden");
+        errors.password.classList.replace("hidden" , "block");
         return
     }
 

@@ -6,7 +6,10 @@ const password = submit['pass'];
 submit.addEventListener( "submit" , (e) => {
     e.preventDefault();
 
-    const accounts = JSON.parse(localStorage.getItem("userAccounts")) || [];
+    const accounts = JSON.parse(localStorage.getItem("userAccounts")) || [{
+        name:"admin",
+        password:"1234"
+    }];
 
     for( let user of accounts ) {
         if(!(user.name === fullName.value) && !(user.password === password.value)) {
@@ -16,8 +19,7 @@ submit.addEventListener( "submit" , (e) => {
         }
     }
 
-
-    window.location.href = "http://127.0.0.1:5500/Admin panel/index.html?";
+    window.location.href = "http://127.0.0.1:5500/admin-panel/index.html?";
     clearingInput()
 });
 
