@@ -29,7 +29,8 @@ window.localStorage.setItem("foods" , JSON.stringify([
 ]));
 
 
-
+const userName = document.getElementById("userName");
+userName.textContent = localStorage.getItem("isAdmin");
 
 const parent = document.getElementById("father");
 const counters = {
@@ -210,6 +211,7 @@ const order3 = modal3.parentElement.nextElementSibling.nextElementSibling;
 order1.onclick = function() {
  
     orders.push({
+        id: 100 * Math.random(),
         title:"Burger",
         price:overall_price1.textContent,
         count:modal1.textContent
@@ -269,6 +271,8 @@ foodSelector.onchange = function() {
     }
 };
 
+const foodId = document.getElementById("foodId");
+
 
 function selection() {
     const userOrder = JSON.parse(localStorage.getItem("orders"));
@@ -282,4 +286,5 @@ function selection() {
     }
 }
 
-selection()
+selection();
+
