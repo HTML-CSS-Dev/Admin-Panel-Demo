@@ -207,11 +207,9 @@ const order3 = modal3.parentElement.nextElementSibling.nextElementSibling;
 
 
 
-
 order1.onclick = function() {
  
     orders.push({
-        id: 100 * Math.random(),
         title:"Burger",
         price:overall_price1.textContent,
         count:modal1.textContent
@@ -271,20 +269,25 @@ foodSelector.onchange = function() {
     }
 };
 
-const foodId = document.getElementById("foodId");
+const selection = document.getElementById("select-food");
 
 
-function selection() {
+selection.onchange = function() {
     const userOrder = JSON.parse(localStorage.getItem("orders"));
-    
-    for( let i of userOrder ) {
-        if ( i.title.trim() === foodSelector.value.trim() ) {
+    let newOrder = userOrder;
+
+    if ( userOrder.length > 3 ) {
+        newOrder = userOrder.slice(userOrder.length - 3);
+    }
+
+    for( let i of newOrder ) {
+        if ( i.title.trim().toLowerCase() === selection.value.trim().toLowerCase()) {
             total.textContent = i.price;
             quantity.textContent = i.count;
             return
         }
     }
+
+    total.textContent = 0;
+    quantity.textContent = 0;
 }
-
-selection();
-
