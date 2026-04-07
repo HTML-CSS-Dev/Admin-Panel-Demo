@@ -210,6 +210,7 @@ const order3 = modal3.parentElement.nextElementSibling.nextElementSibling;
 order1.onclick = function() {
  
     orders.push({
+        user:localStorage.getItem("isAdmin"),
         title:"Burger",
         price:overall_price1.textContent,
         count:modal1.textContent
@@ -224,6 +225,7 @@ order1.onclick = function() {
 order2.onclick = function() {
 
     orders.push({
+        user:localStorage.getItem("isAdmin"),
         title:"Hot Dog",
         price:overall_price2.textContent,
         count:modal2.textContent
@@ -239,6 +241,7 @@ order2.onclick = function() {
 order3.onclick = function() {
     
     orders.push({
+        user:localStorage.getItem("isAdmin"),
         title:"Chips",
         price:overall_price3.textContent,
         count:modal3.textContent
@@ -281,7 +284,7 @@ selection.onchange = function() {
     }
 
     for( let i of newOrder ) {
-        if ( i.title.trim().toLowerCase() === selection.value.trim().toLowerCase()) {
+        if ( localStorage.getItem("isAdmin") === i.user &&  i.title.trim().toLowerCase() === selection.value.trim().toLowerCase()) {
             total.textContent = i.price;
             quantity.textContent = i.count;
             return
